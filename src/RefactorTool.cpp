@@ -92,12 +92,14 @@ void RefactorHandler::handle_nv_dtor(const CXXDestructorDecl *Dtor,
                            SM, Context.getLangOpts());
 
   // Более точная проверка на "virtual" как отдельное слово
-  size_t virtualPos = textBefore.rfind("virtual");
+  std::string word = "virtual";
+  // size_t virtualPos = textBefore.rfind("virtual");
+  size_t virtualPos = textBefore.rfind(word);
   if (virtualPos != StringRef::npos) {
     // Проверяем, что это отдельное слово
     bool isStartOk = (virtualPos == 0) || !isalnum(textBefore[virtualPos - 1]);
-    bool isEndOk = (virtualPos + 7 >= textBefore.size()) ||
-                   !isalnum(textBefore[virtualPos + 7]);
+    bool isEndOk = (virtualPos + word.size() >= textBefore.size()) ||
+                   !isalnum(textBefore[virtualPos + word.size()]);
 
     if (isStartOk && isEndOk) {
       return; // Уже есть virtual
@@ -239,7 +241,7 @@ void CodeRefactorAction::EndSourceFileAction() {
   }
 }
 
-int main(int argc, const char **argv) {
+/*int main(int argc, const char **argv) {
   auto ExpectedParser = CommonOptionsParser::create(argc, argv, ToolCategory);
   if (!ExpectedParser) {
     llvm::errs() << ExpectedParser.takeError();
@@ -249,4 +251,4 @@ int main(int argc, const char **argv) {
   ClangTool Tool(OptionsParser.getCompilations(),
                  OptionsParser.getSourcePathList());
   return Tool.run(newFrontendActionFactory<CodeRefactorAction>().get());
-}
+}*/
