@@ -100,6 +100,10 @@ endif()
 # Set the build directories
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
 
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
 #===============================================================================
 # 4. ADD SUB-TARGETS
 # Doing this at the end so that all definitions and link/include paths are

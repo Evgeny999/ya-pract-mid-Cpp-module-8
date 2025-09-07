@@ -25,7 +25,7 @@
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_executable(refactor_tool RefactorTool.cpp)
+add_executable(refactor_tool RefactorTool.cpp main.cpp)
 
 # Configure include directories for 'plugin'
 target_include_directories(
